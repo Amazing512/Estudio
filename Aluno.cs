@@ -15,15 +15,15 @@ namespace Estudio
         private string Numero;
         private string Bairro;
         private string Complemento;
-        private int CEP;
+        private string CEP;
         private string Cidade;
         private string Estado;
-        private int Telefone;
+        private string Telefone;
         private string Email;
         private byte[] Foto;
         private bool Ativo;
 
-        public Aluno(string cpf, string nome, string rua, string numero, string bairro, string complemento, int cep, string cidade, string estado, int telefone, string email, byte[] foto)
+        public Aluno(string cpf, string nome, string rua, string numero, string bairro, string complemento, string cep, string cidade, string estado, string telefone, string email, byte[] foto)
         {
             DAO_Conexao.getConexao("143.106.241.3", "cl19118", "cl19118", "192103"); 
             setCPF(cpf);
@@ -111,12 +111,12 @@ namespace Estudio
             return this.Complemento;
         }
 
-        public void setCEP(int CEP)
+        public void setCEP(string CEP)
         {
             this.CEP = CEP;
         }
 
-        public int getCEP()
+        public string getCEP()
         {
             return this.CEP;
         }
@@ -141,12 +141,12 @@ namespace Estudio
             return this.Estado;
         }
 
-        public void setTelefone(int Telefone)
+        public void setTelefone(string Telefone)
         {
             this.Telefone = Telefone;
         }
 
-        public int getTelefone()
+        public string getTelefone()
         {
             return this.Telefone;
         }
@@ -188,23 +188,25 @@ namespace Estudio
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand alterar = new MySqlCommand(
+
+                MySqlCommand insere = new MySqlCommand(
                     $"INSERT INTO AlunoEstudio (cpf, nome, rua,  numero, bairro, complemento, cep, " +
                     $"cidade, estado, telefone, email, foto) VALUES (" +
-                    $"'{ CPF }'" +
-                    $"'{Rua}'" +
-                    $"'{Numero}'" +
-                    $"'{Bairro}'" +
-                    $"'{Complemento}'" +
-                    $"{CEP}" +
-                    $"'{Cidade}'" +
-                    $"'{Estado}'" +
-                    $"{Telefone}" +
-                    $"'{Email}'" +
-                    $"{Foto}" , DAO_Conexao.con
-                );
-
-                alterar.ExecuteNonQuery();
+                    $"'{ CPF }'," +
+                    $"'{ Nome }'," +
+                    $"'{Rua}'," +
+                    $"'{Numero}'," +
+                    $"'{Bairro}'," +
+                    $"'{Complemento}'," +
+                    $"'{CEP}'," +
+                    $"'{Cidade}'," +
+                    $"'{Estado}'," +
+                    $"'{Telefone}'," +
+                    $"'{Email}'," +
+                    "@foto)" , DAO_Conexao.con
+                 );
+                insere.Parameters.AddWithValue("foto", this.Foto);
+                insere.ExecuteNonQuery();
                 cadastrou = true;
             }
             catch (Exception ex)
@@ -247,13 +249,12 @@ namespace Estudio
             return existe;
         }
 
-        #region buscaAluno
-        /*public static Aluno buscaAluno(String cpf)
+        public static Aluno buscaAluno(String cpf)
         {
             Aluno aluno = new Aluno();
             try
             {
-                con.Open();
+                DAO_Conexao.con.Open();
                 MySqlCommand consulta = new MySqlCommand($"SELECT * FROM AlunoEstudio WHERE cpf='{cpf}'");
                 MySqlDataReader resultado = consulta.ExecuteReader();
                 if (resultado.Read())
@@ -264,10 +265,10 @@ namespace Estudio
                     aluno.setNumero(resultado["numero"].ToString());
                     aluno.setBairro(resultado["bairro"].ToString());
                     aluno.setComplemento(resultado["complemento"].ToString());
-                    aluno.setCEP(int.Parse(resultado["cep"].ToString()));
+                    aluno.setCEP(resultado["cep"].ToString());
                     aluno.setCidade(resultado["cidade"].ToString());
                     aluno.setEstado(resultado["estado"].ToString());
-                    aluno.setTelefone(int.Parse(resultado["telefone"].ToString()));
+                    aluno.setTelefone(resultado["telefone"].ToString());
                     aluno.setEmail(resultado["email"].ToString());
                     aluno.setAtivo(Boolean.Parse(resultado["ativo"].ToString()));
 
@@ -284,12 +285,11 @@ namespace Estudio
             }
             finally
             {
-                con.Close();
+                DAO_Conexao.con.Close();
             }
             return aluno;
         }
-        */
-        #endregion
+       
 
         public bool excluirAluno()
         {
@@ -320,20 +320,20 @@ namespace Estudio
                 DAO_Conexao.con.Open();
                 MySqlCommand alterar = new MySqlCommand(
                     $"UPDATE AlunoEstudio SET" +
-                    $"nome = '{nome}'" +
-                    $"rua = '{rua}'" +
-                    $"numero = '{numero}'" +
-                    $"bairro = '{bairro}'" +
-                    $"complemento = '{complemento}'" +
-                    $"cep = {cep}" +
-                    $"cidade = '{cidade}'" +
-                    $"estado = '{estado}'" +
-                    $"telefone = {telefone}" +
-                    $"email = '{email}'" +
-                    $"foto = {foto}" +
+                    $"nome = '{nome}'," +
+                    $"rua = '{rua}'," +
+                    $"numero = '{numero}'," +
+                    $"bairro = '{bairro}'," +
+                    $"complemento = '{complemento}'," +
+                    $"cep = '{cep}'," +
+                    $"cidade = '{cidade}'," +
+                    $"estado = '{estado}'," +
+                    $"telefone = '{telefone}'," +
+                    $"email = '{email}'," +
+                    $"foto = @foto" +
                     $"where cpf = '{cpf}'", DAO_Conexao.con
                 );
-
+                alterar.Parameters.AddWithValue("foto", this.Foto);
                 alterar.ExecuteNonQuery();
                 alterado = true;
             }

@@ -51,7 +51,6 @@ namespace Estudio
 
         public static byte[] ConverterFotoParaByteArray(PictureBox pictureBox)
         {
-            if (pictureBox.Image == null) pictureBox.Image = Properties.Resources.images;
             using (var stream = new System.IO.MemoryStream())
             {
                 pictureBox.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);

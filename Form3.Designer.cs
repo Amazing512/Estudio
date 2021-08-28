@@ -89,7 +89,7 @@ namespace Estudio
             this.groupBox1.Size = new System.Drawing.Size(466, 229);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Dados Cadastrais";
             // 
             // pictureBox1
             // 
@@ -207,6 +207,7 @@ namespace Estudio
             this.txtCPF.Name = "txtCPF";
             this.txtCPF.Size = new System.Drawing.Size(83, 20);
             this.txtCPF.TabIndex = 13;
+            this.txtCPF.Leave += new System.EventHandler(this.txtCPF_Leave_1);
             // 
             // txtCEP
             // 
@@ -304,7 +305,7 @@ namespace Estudio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(697, 263);
             this.Controls.Add(this.btnEscolherFoto);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox1);

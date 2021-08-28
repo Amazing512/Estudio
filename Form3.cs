@@ -65,28 +65,45 @@ namespace Estudio
             aluno.setNumero(txtNumero.Text);
             aluno.setBairro(txtBairro.Text);
             aluno.setComplemento(txtComplemento.Text);
-            try
-            {
-                aluno.setCEP(int.Parse(txtCEP.Text));
-            }
-            catch
-            {
-                MessageBox.Show("Digite um CEP válido");
-            }
-
             aluno.setCidade(txtCidade.Text);
             aluno.setEstado(txtEstado.Text);
+            aluno.setEmail(txtEmail.Text);
+            aluno.setCEP(txtCEP.Text);
+            aluno.setTelefone(txtTelefone.Text);
+            byte[] foto = Methods.ConverterFotoParaByteArray(pictureBox1);
+            aluno.setFoto(foto);
 
+            if (aluno.cadastrarAluno())
+            {
+                MessageBox.Show("Cadastrado com sucesso!", "SUCESSO");
+                limpaCampos();
+            }
+            else
+            {
+                MessageBox.Show("Erro ao cadastrar!", "ERRO");
+            }
+        }
+
+        private void txtCPF_Leave_1(object sender, EventArgs e)
+        {
             try
             {
-                aluno.setTelefone(int.Parse(txtTelefone.Text));
+                if (!Methods.verificaCPF(txtCPF.Text))
+                {
+                    MessageBox.Show("CPF Inválido!", "ERRO");
+                    txtCPF.Focus();
+                }
             }
-            catch
+            catch (FormatException ex)
             {
-                MessageBox.Show("Digite um Telefone válido");
+                MessageBox.Show("CPF inválido!", "ERRO");
+                txtCPF.Focus();
             }
-            aluno.setEmail(txtEmail.Text);
-            aluno.setFoto(Methods.ConverterFotoParaByteArray(pictureBox1));
+        }
+
+        public void limpaCampos()
+        {
+            txtCPF.Text = txtCEP.Text = txtCidade.Text = txtComplemento.Text = txtBairro.Text = txtEmail.Text = txtEndereco.Text = txtEstado.Text = txtNome.Text = txtNumero.Text = txtTelefone.Text = ""; 
         }
     }
 }
