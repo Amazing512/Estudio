@@ -25,7 +25,8 @@ namespace Estudio
 
         public Aluno(string cpf, string nome, string rua, string numero, string bairro, string complemento, int cep, string cidade, string estado, int telefone, string email, byte[] foto)
         {
-            setCPF(CPF);
+            DAO_Conexao.getConexao("143.106.241.3", "cl19118", "cl19118", "192103"); 
+            setCPF(cpf);
             setNome(nome);
             setRua(rua);
             setNumero(numero);
@@ -49,46 +50,7 @@ namespace Estudio
             this.CPF = cpf;
         }
 
-        public bool verificaCPF(string CPF)
-        {
-            int soma, resto, cont = 0;
-            soma = 0;
-
-            CPF = CPF.Trim();
-            CPF = CPF.Replace(".", "");
-            CPF = CPF.Replace("-", "");
-
-            for (int i = 0; i < CPF.Length; i++)
-            {
-                int a = CPF[0] - '0';
-                int b = CPF[i] - '0';
-
-                if (a == b) cont++;
-            }
-
-            if (cont == 11) return false;
-
-            for (int i = 1; i <= 9; i++) soma += int.Parse(CPF.Substring(i - 1, 1)) * (11 - i);
-
-            resto = (soma * 10) % 11;
-
-            if ((resto == 10) || (resto == 11)) resto = 0;
-
-            if (resto != int.Parse(CPF.Substring(9, 1))) return false;
-
-            soma = 0;
-
-            for (int i = 1; i <= 10; i++) soma += int.Parse(CPF.Substring(i - 1, 1)) * (12 - i);
-
-            resto = (soma * 10) % 11;
-
-            if ((resto == 10) || (resto == 11)) resto = 0;
-
-            if (resto != int.Parse(CPF.Substring(10, 1))) return false;
-
-            return true;
-        }
-
+      
         public void setCPF(string CPF)
         {
             this.CPF = CPF; 
@@ -247,7 +209,7 @@ namespace Estudio
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex.ToString());
             }
             finally
             {
@@ -284,19 +246,58 @@ namespace Estudio
             }
             return existe;
         }
-        
 
-        public bool excluirAluno()
+        #region buscaAluno
+        /*public static Aluno buscaAluno(String cpf)
         {
-            bool desativado = DAO_Conexao.excluirAluno(this.CPF);
-
-            #region Código DAO_Conexao.excluirAluno
-            /*
-             bool desativado = false;
+            Aluno aluno = new Aluno();
             try
             {
                 con.Open();
-                MySqlCommand excluir = new MySqlCommand($"UPDATE AlunoEstudio SET ativo=0 where cpf = '{cpf}'", con);
+                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM AlunoEstudio WHERE cpf='{cpf}'");
+                MySqlDataReader resultado = consulta.ExecuteReader();
+                if (resultado.Read())
+                {
+                    aluno.setCPF(resultado["cpf"].ToString());
+                    aluno.setNome(resultado["nome"].ToString());
+                    aluno.setRua(resultado["rua"].ToString());
+                    aluno.setNumero(resultado["numero"].ToString());
+                    aluno.setBairro(resultado["bairro"].ToString());
+                    aluno.setComplemento(resultado["complemento"].ToString());
+                    aluno.setCEP(int.Parse(resultado["cep"].ToString()));
+                    aluno.setCidade(resultado["cidade"].ToString());
+                    aluno.setEstado(resultado["estado"].ToString());
+                    aluno.setTelefone(int.Parse(resultado["telefone"].ToString()));
+                    aluno.setEmail(resultado["email"].ToString());
+                    aluno.setAtivo(Boolean.Parse(resultado["ativo"].ToString()));
+
+                    aluno.setFoto(Encoding.ASCII.GetBytes(resultado["foto"].ToString()));
+                }
+                else
+                {
+                    throw new Exception("Aluno não existe!");
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return aluno;
+        }
+        */
+        #endregion
+
+        public bool excluirAluno()
+        {
+            bool desativado = false;
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand excluir = new MySqlCommand($"UPDATE AlunoEstudio SET ativo=0 where cpf = '{CPF}'", DAO_Conexao.con);
                 excluir.ExecuteNonQuery();
                 desativado = true;
             }
@@ -306,55 +307,44 @@ namespace Estudio
             }
             finally
             {
-                con.Close();
+                DAO_Conexao.con.Close();
             }
-            return desativado;
-             */
-            #endregion
-
             return desativado;
         }
 
         public bool alterarAluno(string cpf, string nome, string rua, string numero, string bairro, string complemento, int cep, string cidade, string estado, int telefone, string email, byte[] foto)
         {
-            bool alterado = DAO_Conexao.alterarAluno(cpf, nome, rua, numero, bairro, complemento, cep, cidade, estado, telefone, email, foto);
+            bool alterado = false;
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand alterar = new MySqlCommand(
+                    $"UPDATE AlunoEstudio SET" +
+                    $"nome = '{nome}'" +
+                    $"rua = '{rua}'" +
+                    $"numero = '{numero}'" +
+                    $"bairro = '{bairro}'" +
+                    $"complemento = '{complemento}'" +
+                    $"cep = {cep}" +
+                    $"cidade = '{cidade}'" +
+                    $"estado = '{estado}'" +
+                    $"telefone = {telefone}" +
+                    $"email = '{email}'" +
+                    $"foto = {foto}" +
+                    $"where cpf = '{cpf}'", DAO_Conexao.con
+                );
 
-            #region Código DAO_Conexao.alterarAluno
-            /*
-             bool desativado = false;
-             try
-             {
-                 con.Open();
-                 MySqlCommand alterar = new MySqlCommand(
-                     $"UPDATE AlunoEstudio SET"       +
-                     $"nome = '{nome}'"               +
-                     $"rua = '{rua}'"                 +
-                     $"numero = '{numero}'"           +
-                     $"bairro = '{bairro}'"           +
-                     $"complemento = '{complemento}'" +
-                     $"cep = {cep}"                   +
-                     $"cidade = '{cidade}'"           +
-                     $"estado = '{estado}'"           +
-                     $"telefone = {telefone}"         +
-                     $"email = '{email}'"             +
-                     $"foto = {foto}"                 +
-                     $"where cpf = '{cpf}'", con
-                 );
-
-                 alterar.ExecuteNonQuery();
-                 desativado = true;
-             }
-             catch (Exception ex)
-             {
-                 throw ex;
-             }
-             finally
-             {
-                 con.Close();
-             }
-             return desativado;
-             */
-            #endregion
+                alterar.ExecuteNonQuery();
+                alterado = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
             return alterado;
         }
 
