@@ -22,17 +22,18 @@ namespace Estudio
             form2.Show();
         }
 
-        private void logarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void cadastrarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cadastrarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Form3 form3 = new Form3(this);
             form3.MdiParent = this;
             form3.Show();
+        }
 
+        private void pesquisaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form4 form4 = new Form4(this);
+            form4.MdiParent = this;
+            form4.Show();
         }
     }
 }

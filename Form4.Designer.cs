@@ -1,7 +1,7 @@
 ﻿
 namespace Estudio
 {
-    partial class Form3
+    partial class Form4
     {
         /// <summary>
         /// Required designer variable.
@@ -29,8 +29,10 @@ namespace Estudio
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnEscolherFoto = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnCadastrar = new System.Windows.Forms.Button();
+            this.btnAtualizar = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtEstado = new System.Windows.Forms.TextBox();
             this.txtCidade = new System.Windows.Forms.TextBox();
@@ -42,26 +44,37 @@ namespace Estudio
             this.txtNome = new System.Windows.Forms.TextBox();
             this.txtTelefone = new System.Windows.Forms.MaskedTextBox();
             this.txtCEP = new System.Windows.Forms.MaskedTextBox();
-            this.txtCPF = new System.Windows.Forms.MaskedTextBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.lblComplemento = new System.Windows.Forms.Label();
             this.lblTelefone = new System.Windows.Forms.Label();
             this.lblNome = new System.Windows.Forms.Label();
             this.lblEstado = new System.Windows.Forms.Label();
-            this.lblCPF = new System.Windows.Forms.Label();
             this.lblCidade = new System.Windows.Forms.Label();
             this.lblEndereco = new System.Windows.Forms.Label();
             this.lblCEP = new System.Windows.Forms.Label();
             this.lblBairro = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnEscolherFoto = new System.Windows.Forms.Button();
+            this.txtCPF = new System.Windows.Forms.MaskedTextBox();
+            this.lblCPF = new System.Windows.Forms.Label();
+            this.btnConsultar = new System.Windows.Forms.Button();
+            this.btnExcluir = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
+            // btnEscolherFoto
+            // 
+            this.btnEscolherFoto.Location = new System.Drawing.Point(503, 212);
+            this.btnEscolherFoto.Name = "btnEscolherFoto";
+            this.btnEscolherFoto.Size = new System.Drawing.Size(184, 36);
+            this.btnEscolherFoto.TabIndex = 25;
+            this.btnEscolherFoto.Text = "Escolher Foto";
+            this.btnEscolherFoto.UseVisualStyleBackColor = true;
+            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnCadastrar);
+            this.groupBox1.Controls.Add(this.btnEscolherFoto);
+            this.groupBox1.Controls.Add(this.btnAtualizar);
+            this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.txtEmail);
             this.groupBox1.Controls.Add(this.txtEstado);
             this.groupBox1.Controls.Add(this.txtCidade);
@@ -73,33 +86,42 @@ namespace Estudio
             this.groupBox1.Controls.Add(this.txtNome);
             this.groupBox1.Controls.Add(this.txtTelefone);
             this.groupBox1.Controls.Add(this.txtCEP);
-            this.groupBox1.Controls.Add(this.txtCPF);
             this.groupBox1.Controls.Add(this.lblEmail);
             this.groupBox1.Controls.Add(this.lblComplemento);
             this.groupBox1.Controls.Add(this.lblTelefone);
             this.groupBox1.Controls.Add(this.lblNome);
             this.groupBox1.Controls.Add(this.lblEstado);
-            this.groupBox1.Controls.Add(this.lblCPF);
             this.groupBox1.Controls.Add(this.lblCidade);
             this.groupBox1.Controls.Add(this.lblEndereco);
             this.groupBox1.Controls.Add(this.lblCEP);
             this.groupBox1.Controls.Add(this.lblBairro);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 72);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(466, 229);
-            this.groupBox1.TabIndex = 0;
+            this.groupBox1.Size = new System.Drawing.Size(703, 267);
+            this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dados Cadastrais";
+            this.groupBox1.Visible = false;
             // 
-            // btnCadastrar
+            // btnAtualizar
             // 
-            this.btnCadastrar.Location = new System.Drawing.Point(6, 193);
-            this.btnCadastrar.Name = "btnCadastrar";
-            this.btnCadastrar.Size = new System.Drawing.Size(452, 23);
-            this.btnCadastrar.TabIndex = 23;
-            this.btnCadastrar.Text = "Cadastrar";
-            this.btnCadastrar.UseVisualStyleBackColor = true;
-            this.btnCadastrar.Click += new System.EventHandler(this.btnCadastrar_Click);
+            this.btnAtualizar.Location = new System.Drawing.Point(6, 219);
+            this.btnAtualizar.Name = "btnAtualizar";
+            this.btnAtualizar.Size = new System.Drawing.Size(452, 29);
+            this.btnAtualizar.TabIndex = 23;
+            this.btnAtualizar.Text = "Atualizar";
+            this.btnAtualizar.UseVisualStyleBackColor = true;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Estudio.Properties.Resources.images;
+            this.pictureBox1.Location = new System.Drawing.Point(503, 19);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(184, 187);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 24;
+            this.pictureBox1.TabStop = false;
             // 
             // txtEmail
             // 
@@ -182,15 +204,6 @@ namespace Estudio
             this.txtCEP.Size = new System.Drawing.Size(74, 20);
             this.txtCEP.TabIndex = 14;
             // 
-            // txtCPF
-            // 
-            this.txtCPF.Location = new System.Drawing.Point(74, 28);
-            this.txtCPF.Mask = "000,000,000-00";
-            this.txtCPF.Name = "txtCPF";
-            this.txtCPF.Size = new System.Drawing.Size(83, 20);
-            this.txtCPF.TabIndex = 13;
-            this.txtCPF.Leave += new System.EventHandler(this.txtCPF_Leave_1);
-            // 
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
@@ -236,15 +249,6 @@ namespace Estudio
             this.lblEstado.TabIndex = 10;
             this.lblEstado.Text = "Estado:";
             // 
-            // lblCPF
-            // 
-            this.lblCPF.AutoSize = true;
-            this.lblCPF.Location = new System.Drawing.Point(38, 31);
-            this.lblCPF.Name = "lblCPF";
-            this.lblCPF.Size = new System.Drawing.Size(30, 13);
-            this.lblCPF.TabIndex = 3;
-            this.lblCPF.Text = "CPF:";
-            // 
             // lblCidade
             // 
             this.lblCidade.AutoSize = true;
@@ -281,46 +285,81 @@ namespace Estudio
             this.lblBairro.TabIndex = 6;
             this.lblBairro.Text = "Bairro:";
             // 
-            // pictureBox1
+            // txtCPF
             // 
-            this.pictureBox1.Image = global::Estudio.Properties.Resources.images;
-            this.pictureBox1.Location = new System.Drawing.Point(484, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(184, 187);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.txtCPF.Location = new System.Drawing.Point(48, 26);
+            this.txtCPF.Mask = "000,000,000-00";
+            this.txtCPF.Name = "txtCPF";
+            this.txtCPF.Size = new System.Drawing.Size(85, 20);
+            this.txtCPF.TabIndex = 13;
             // 
-            // btnEscolherFoto
+            // lblCPF
             // 
-            this.btnEscolherFoto.Location = new System.Drawing.Point(484, 205);
-            this.btnEscolherFoto.Name = "btnEscolherFoto";
-            this.btnEscolherFoto.Size = new System.Drawing.Size(184, 36);
-            this.btnEscolherFoto.TabIndex = 22;
-            this.btnEscolherFoto.Text = "Escolher Foto";
-            this.btnEscolherFoto.UseVisualStyleBackColor = true;
-            this.btnEscolherFoto.Click += new System.EventHandler(this.btnEscolherFoto_Click);
+            this.lblCPF.AutoSize = true;
+            this.lblCPF.Location = new System.Drawing.Point(12, 29);
+            this.lblCPF.Name = "lblCPF";
+            this.lblCPF.Size = new System.Drawing.Size(30, 13);
+            this.lblCPF.TabIndex = 3;
+            this.lblCPF.Text = "CPF:";
             // 
-            // Form3
+            // btnConsultar
+            // 
+            this.btnConsultar.Location = new System.Drawing.Point(141, 24);
+            this.btnConsultar.Name = "btnConsultar";
+            this.btnConsultar.Size = new System.Drawing.Size(75, 23);
+            this.btnConsultar.TabIndex = 24;
+            this.btnConsultar.Text = "Consultar";
+            this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
+            // 
+            // btnExcluir
+            // 
+            this.btnExcluir.Location = new System.Drawing.Point(222, 23);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(75, 24);
+            this.btnExcluir.TabIndex = 25;
+            this.btnExcluir.Text = "Excluir";
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            // 
+            // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(697, 263);
-            this.Controls.Add(this.btnEscolherFoto);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnExcluir);
+            this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Form3";
-            this.Text = "Cadastrar";
+            this.Controls.Add(this.lblCPF);
+            this.Controls.Add(this.txtCPF);
+            this.Name = "Form4";
+            this.Text = "Consultar";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.Button btnEscolherFoto;
+        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnAtualizar;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.TextBox txtEstado;
+        private System.Windows.Forms.TextBox txtCidade;
+        private System.Windows.Forms.TextBox txtComplemento;
+        private System.Windows.Forms.TextBox txtNumero;
+        private System.Windows.Forms.Label lblNumero;
+        private System.Windows.Forms.TextBox txtBairro;
+        private System.Windows.Forms.TextBox txtEndereco;
+        private System.Windows.Forms.TextBox txtNome;
+        private System.Windows.Forms.MaskedTextBox txtTelefone;
+        private System.Windows.Forms.MaskedTextBox txtCEP;
+        private System.Windows.Forms.MaskedTextBox txtCPF;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.Label lblComplemento;
         private System.Windows.Forms.Label lblTelefone;
@@ -330,21 +369,8 @@ namespace Estudio
         private System.Windows.Forms.Label lblCidade;
         private System.Windows.Forms.Label lblEndereco;
         private System.Windows.Forms.Label lblCEP;
-        private System.Windows.Forms.Label lblNumero;
         private System.Windows.Forms.Label lblBairro;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.MaskedTextBox txtTelefone;
-        private System.Windows.Forms.MaskedTextBox txtCEP;
-        private System.Windows.Forms.MaskedTextBox txtCPF;
-        private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.TextBox txtEstado;
-        private System.Windows.Forms.TextBox txtCidade;
-        private System.Windows.Forms.TextBox txtComplemento;
-        private System.Windows.Forms.TextBox txtBairro;
-        private System.Windows.Forms.TextBox txtEndereco;
-        private System.Windows.Forms.TextBox txtNome;
-        private System.Windows.Forms.TextBox txtNumero;
-        private System.Windows.Forms.Button btnEscolherFoto;
-        private System.Windows.Forms.Button btnCadastrar;
+        private System.Windows.Forms.Button btnConsultar;
+        private System.Windows.Forms.Button btnExcluir;
     }
 }

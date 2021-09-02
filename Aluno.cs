@@ -47,7 +47,7 @@ namespace Estudio
 
         public Aluno(string cpf)
         {
-            this.CPF = cpf;
+            setCPF(cpf);
         }
 
       
@@ -231,7 +231,9 @@ namespace Estudio
                 MySqlDataReader resultado = consulta.ExecuteReader();
                 if (resultado.Read())
                 {
-                    existe = true;
+                    Console.WriteLine(resultado["ativo"].ToString());
+                    if(resultado["ativo"].ToString().Equals("1")) existe = true;
+                    else throw new Exception("Aluno não existe!");
                 }
                 else
                 {
@@ -255,7 +257,7 @@ namespace Estudio
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM AlunoEstudio WHERE cpf='{cpf}'");
+                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM AlunoEstudio WHERE cpf='{cpf}'",DAO_Conexao.con);
                 MySqlDataReader resultado = consulta.ExecuteReader();
                 if (resultado.Read())
                 {
@@ -270,7 +272,8 @@ namespace Estudio
                     aluno.setEstado(resultado["estado"].ToString());
                     aluno.setTelefone(resultado["telefone"].ToString());
                     aluno.setEmail(resultado["email"].ToString());
-                    aluno.setAtivo(Boolean.Parse(resultado["ativo"].ToString()));
+                    if (resultado["ativo"].ToString().Equals("1")) aluno.setAtivo(true);
+                    else aluno.setAtivo(false);
 
                     aluno.setFoto(Encoding.ASCII.GetBytes(resultado["foto"].ToString()));
                 }
@@ -312,7 +315,7 @@ namespace Estudio
             return desativado;
         }
 
-        public bool alterarAluno(string cpf, string nome, string rua, string numero, string bairro, string complemento, int cep, string cidade, string estado, int telefone, string email, byte[] foto)
+        public bool alterarAluno()
         {
             bool alterado = false;
             try
@@ -320,19 +323,20 @@ namespace Estudio
                 DAO_Conexao.con.Open();
                 MySqlCommand alterar = new MySqlCommand(
                     $"UPDATE AlunoEstudio SET" +
-                    $"nome = '{nome}'," +
-                    $"rua = '{rua}'," +
-                    $"numero = '{numero}'," +
-                    $"bairro = '{bairro}'," +
-                    $"complemento = '{complemento}'," +
-                    $"cep = '{cep}'," +
-                    $"cidade = '{cidade}'," +
-                    $"estado = '{estado}'," +
-                    $"telefone = '{telefone}'," +
-                    $"email = '{email}'," +
+                    $"nome = '{Nome}'," +
+                    $"rua = '{Rua}'," +
+                    $"numero = '{Numero}'," +
+                    $"bairro = '{Bairro}'," +
+                    $"complemento = '{Complemento}'," +
+                    $"cep = '{CEP}'," +
+                    $"cidade = '{Cidade}'," +
+                    $"estado = '{Estado}'," +
+                    $"telefone = '{Telefone}'," +
+                    $"email = '{Email}'," +
                     $"foto = @foto" +
-                    $"where cpf = '{cpf}'", DAO_Conexao.con
+                    $"where cpf = '{CPF}'", DAO_Conexao.con
                 );
+
                 alterar.Parameters.AddWithValue("foto", this.Foto);
                 alterar.ExecuteNonQuery();
                 alterado = true;
