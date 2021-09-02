@@ -37,7 +37,6 @@ C:\Users\corre\source\repos\Estudio\bin\Debug\K4os.Compression.LZ4.dll
 C:\Users\corre\source\repos\Estudio\bin\Debug\K4os.Hash.xxHash.dll
 C:\Users\corre\source\repos\Estudio\bin\Debug\System.Numerics.Vectors.dll
 C:\Users\corre\source\repos\Estudio\bin\Debug\MySql.Data.xml
-C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.csproj.AssemblyReference.cache
 C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form1.resources
 C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form2.resources
 C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Properties.Resources.resources

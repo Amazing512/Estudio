@@ -55,12 +55,10 @@ namespace Estudio
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
-            limpaCampos();
             Aluno aluno;
             try
             {
                 aluno = Aluno.buscaAluno(txtCPF.Text);
-
                 txtCPF.Text = aluno.getCPF();
                 txtCEP.Text = aluno.getCEP();
                 txtCidade.Text = aluno.getCidade();
@@ -72,12 +70,15 @@ namespace Estudio
                 txtNome.Text = aluno.getNome();
                 txtNumero.Text = aluno.getNumero();
                 txtTelefone.Text = aluno.getTelefone();
-                pictureBox1.Image = (Bitmap)((new ImageConverter()).ConvertFrom(aluno.getFoto()));
+                Bitmap fotoAluno = (Bitmap) ((new ImageConverter()).ConvertFrom(aluno.getFoto()));
+                pictureBox1.Image = fotoAluno;
                 groupBox1.Visible = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                groupBox1.Visible = false;
+                limpaCampos();
             }
         }
 
@@ -97,6 +98,26 @@ namespace Estudio
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void btnEscolherFoto_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Escolher foto";
+            dialog.Filter = "JPG (*.jpg) |*.jpg" + "|All files (*.*)|*.*";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    pictureBox1.Image = new Bitmap(dialog.OpenFile());
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Não foi possível cadastrar a foto:" + ex.ToString());
+                }
+            }
+            dialog.Dispose();
         }
     }
 }

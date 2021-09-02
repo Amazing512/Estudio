@@ -231,9 +231,7 @@ namespace Estudio
                 MySqlDataReader resultado = consulta.ExecuteReader();
                 if (resultado.Read())
                 {
-                    Console.WriteLine(resultado["ativo"].ToString());
-                    if(resultado["ativo"].ToString().Equals("1")) existe = true;
-                    else throw new Exception("Aluno não existe!");
+                    existe = true;
                 }
                 else
                 {
@@ -257,7 +255,7 @@ namespace Estudio
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM AlunoEstudio WHERE cpf='{cpf}'",DAO_Conexao.con);
+                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM AlunoEstudio WHERE cpf='{cpf}' AND ativo=1",DAO_Conexao.con);
                 MySqlDataReader resultado = consulta.ExecuteReader();
                 if (resultado.Read())
                 {
@@ -275,7 +273,7 @@ namespace Estudio
                     if (resultado["ativo"].ToString().Equals("1")) aluno.setAtivo(true);
                     else aluno.setAtivo(false);
 
-                    aluno.setFoto(Encoding.ASCII.GetBytes(resultado["foto"].ToString()));
+                    aluno.setFoto((Byte[]) resultado["foto"]);
                 }
                 else
                 {
@@ -300,7 +298,7 @@ namespace Estudio
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand excluir = new MySqlCommand($"UPDATE AlunoEstudio SET ativo=0 where cpf = '{CPF}'", DAO_Conexao.con);
+                MySqlCommand excluir = new MySqlCommand($"UPDATE AlunoEstudio SET ativo=0 where cpf = '{CPF}' AND ativo=1", DAO_Conexao.con);
                 excluir.ExecuteNonQuery();
                 desativado = true;
             }
@@ -322,7 +320,7 @@ namespace Estudio
             {
                 DAO_Conexao.con.Open();
                 MySqlCommand alterar = new MySqlCommand(
-                    $"UPDATE AlunoEstudio SET" +
+                    $"UPDATE AlunoEstudio SET " +
                     $"nome = '{Nome}'," +
                     $"rua = '{Rua}'," +
                     $"numero = '{Numero}'," +
@@ -334,7 +332,7 @@ namespace Estudio
                     $"telefone = '{Telefone}'," +
                     $"email = '{Email}'," +
                     $"foto = @foto" +
-                    $"where cpf = '{CPF}'", DAO_Conexao.con
+                    $" where cpf = '{CPF}'", DAO_Conexao.con
                 );
 
                 alterar.Parameters.AddWithValue("foto", this.Foto);
