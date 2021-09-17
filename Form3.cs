@@ -58,34 +58,6 @@ namespace Estudio
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            Aluno aluno = new Aluno();
-            aluno.setCPF(txtCPF.Text);
-            aluno.setNome(txtNome.Text);
-            aluno.setRua(txtEndereco.Text);
-            aluno.setNumero(txtNumero.Text);
-            aluno.setBairro(txtBairro.Text);
-            aluno.setComplemento(txtComplemento.Text);
-            aluno.setCidade(txtCidade.Text);
-            aluno.setEstado(txtEstado.Text);
-            aluno.setEmail(txtEmail.Text);
-            aluno.setCEP(txtCEP.Text);
-            aluno.setTelefone(txtTelefone.Text);
-            byte[] foto = Methods.ConverterFotoParaByteArray(pictureBox1);
-            aluno.setFoto(foto);
-
-            if (aluno.cadastrarAluno())
-            {
-                MessageBox.Show("Cadastrado com sucesso!", "SUCESSO");
-                limpaCampos();
-            }
-            else
-            {
-                MessageBox.Show("Erro ao cadastrar!", "ERRO");
-            }
-        }
-
-        private void txtCPF_Leave_1(object sender, EventArgs e)
-        {
             try
             {
                 if (!Methods.verificaCPF(txtCPF.Text))
@@ -93,12 +65,40 @@ namespace Estudio
                     MessageBox.Show("CPF Inválido!", "ERRO");
                     txtCPF.Focus();
                 }
+                else
+                {
+                    Aluno aluno = new Aluno();
+                    aluno.setCPF(txtCPF.Text);
+                    aluno.setNome(txtNome.Text);
+                    aluno.setRua(txtEndereco.Text);
+                    aluno.setNumero(txtNumero.Text);
+                    aluno.setBairro(txtBairro.Text);
+                    aluno.setComplemento(txtComplemento.Text);
+                    aluno.setCidade(txtCidade.Text);
+                    aluno.setEstado(txtEstado.Text);
+                    aluno.setEmail(txtEmail.Text);
+                    aluno.setCEP(txtCEP.Text);
+                    aluno.setTelefone(txtTelefone.Text);
+                    byte[] foto = Methods.ConverterFotoParaByteArray(pictureBox1);
+                    aluno.setFoto(foto);
+
+                    if (aluno.cadastrarAluno())
+                    {
+                        MessageBox.Show("Cadastrado com sucesso!", "SUCESSO");
+                        limpaCampos();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao cadastrar!", "ERRO");
+                    }
+                }
             }
             catch (FormatException ex)
             {
                 MessageBox.Show("CPF inválido!", "ERRO");
                 txtCPF.Focus();
             }
+            
         }
 
         public void limpaCampos()

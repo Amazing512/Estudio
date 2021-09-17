@@ -189,7 +189,6 @@ namespace Estudio
             this.txtCPF.Name = "txtCPF";
             this.txtCPF.Size = new System.Drawing.Size(83, 20);
             this.txtCPF.TabIndex = 13;
-            this.txtCPF.Leave += new System.EventHandler(this.txtCPF_Leave_1);
             // 
             // lblEmail
             // 
