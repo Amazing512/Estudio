@@ -35,5 +35,24 @@ namespace Estudio
             form4.MdiParent = this;
             form4.Show();
         }
+
+        private void pesquisarTurmasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form5 form5 = new Form5(this);
+            form5.MdiParent = this;
+            form5.Show();
+        }
+
+        private void verModalidadesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form6 form6 = new Form6(this);
+            form6.MdiParent = this;
+            form6.Show();
+        }
+
+        private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

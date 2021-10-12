@@ -27,9 +27,8 @@ namespace Estudio
             setId_turma(Id_turma);
         }
 
-        public Turmas(int Id_turma, int Id_modalidade, string Professor, string Dia_semana, string Hora)
+        public Turmas(int Id_modalidade, string Professor, string Dia_semana, string Hora)
         {
-            setId_turma(Id_turma);
             setId_modalidade(Id_modalidade);
             setProfessor(Professor);
             setDia_semana(Dia_semana);
@@ -102,7 +101,8 @@ namespace Estudio
                     $"{ Id_modalidade }," +
                     $"'{ Professor }'," +
                     $"'{ Dia_semana }'," +
-                    $"'{ Hora }', 1",
+                    $"'{ Hora }'," +
+                    $" 1);",
                     DAO_Conexao.con
                  );
                 insere.ExecuteNonQuery();

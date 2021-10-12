@@ -73,3 +73,5 @@ C:\Users\mathe\source\repos\Estudio\Estudio\obj\Debug\Estudio.csproj.CoreCompile
 C:\Users\mathe\source\repos\Estudio\Estudio\obj\Debug\Estudio.csproj.CopyComplete
 C:\Users\mathe\source\repos\Estudio\Estudio\obj\Debug\Estudio.exe
 C:\Users\mathe\source\repos\Estudio\Estudio\obj\Debug\Estudio.pdb
+C:\Users\mathe\source\repos\Estudio\Estudio\obj\Debug\Estudio.csproj.AssemblyReference.cache
+C:\Users\mathe\source\repos\Estudio\Estudio\obj\Debug\Estudio.Form5.resources

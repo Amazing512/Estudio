@@ -22,9 +22,8 @@ namespace Estudio
 
         }
 
-        public Modalidades(int id_Modalidade, string descricao, double preco, int aulas, int alunos)
+        public Modalidades(string descricao, double preco, int aulas, int alunos)
         {
-            setId_Modalidade(id_Modalidade);
             setDescricao(descricao);
             setPreco(preco);
             setQtde_aulas(aulas);
@@ -117,11 +116,10 @@ namespace Estudio
         {
 
             List<Modalidades> arrayModalidades = new List<Modalidades>();
-            
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM Modalidades WHERE ativo = 1");
+                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM Modalidades WHERE ativo = 1 ORDER BY id_modalidade" , DAO_Conexao.con);
                 MySqlDataReader resultado = consulta.ExecuteReader(); 
                 while (resultado.Read())
                 {
@@ -136,7 +134,7 @@ namespace Estudio
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex.ToString());
             }
             finally
             {
@@ -160,7 +158,7 @@ namespace Estudio
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex.ToString());
             }
             finally
             {
