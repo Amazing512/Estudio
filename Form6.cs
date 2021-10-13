@@ -21,7 +21,7 @@ namespace Estudio
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            if (txt.Text.Trim().Equals(""))
+            /*if (txt.Text.Trim().Equals(""))
             {
                 MessageBox.Show("Aponte um professor para a Turma!", "Erro!");
             }
@@ -34,7 +34,7 @@ namespace Estudio
                     Qtde_aulas;
                     Qtde_alunos;
                     Ativo;
-                */
+               
                 Modalidade modalidade = new Modalidade(
                     
                 );
@@ -42,7 +42,7 @@ namespace Estudio
                 limparTelaCadastro();
                 MessageBox.Show("Modalidade cadastrada com Sucesso!", "Sucesso!");
             }
-            txt
+            txt*/
         }
     }
 }

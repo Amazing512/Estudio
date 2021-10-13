@@ -52,7 +52,16 @@ namespace Estudio
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Form8 form8 = new Form8(this);
+            form8.MdiParent = this;
+            form8.Show();
+        }
 
+        private void consultarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Form7 form7 = new Form7(this);
+            form7.MdiParent = this;
+            form7.Show();
         }
     }
 }
