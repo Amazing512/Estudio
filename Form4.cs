@@ -91,7 +91,7 @@ namespace Estudio
                 try
                 {
                     if (aluno.excluirAluno()) MessageBox.Show("Aluno excluído com sucesso", "SUCESSO");
-                    else MessageBox.Show("Falha ao excluir", "ERRO");
+                    else MessageBox.Show("Aluno não existe ou já foi excluido!", "ERRO");
                 }
                 catch (Exception ex)
                 {

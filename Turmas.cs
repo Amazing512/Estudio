@@ -110,7 +110,7 @@ namespace Estudio
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                throw ex;
             }
             finally
             {
@@ -138,7 +138,6 @@ namespace Estudio
                     turma.setProfessor(resultado["professor"].ToString());
                     turma.setDia_semana(resultado["dia_semana"].ToString());
                     turma.setHora(resultado["hora"].ToString());
-                    turma.setAtivo(Boolean.Parse(resultado["ativo"].ToString()));
 
                     turmasArray.Add(turma);
                 }
@@ -155,6 +154,36 @@ namespace Estudio
             return turmasArray;
         }
 
+        public static Turmas buscaTurma(int id_turma)
+        {
+            Turmas turma = null;
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM Turmas WHERE id_turma={ id_turma } AND ativo = 1", DAO_Conexao.con);
+                MySqlDataReader resultado = consulta.ExecuteReader();
+                if (resultado.Read())
+                {
+                    turma = new Turmas();
+                    turma.setId_turma(Convert.ToInt32(resultado["id_turma"]));
+                    turma.setId_modalidade(Convert.ToInt32(resultado["id_modalidade"].ToString()));
+                    turma.setProfessor(resultado["professor"].ToString());
+                    turma.setDia_semana(resultado["dia_semana"].ToString());
+                    turma.setHora(resultado["hora"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return turma;
+        }
+
 
         public bool excluirTurma()
         {
@@ -162,9 +191,13 @@ namespace Estudio
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand excluir = new MySqlCommand($"UPDATE Turmas SET ativo=0 where id_turma = { Id_turma }", DAO_Conexao.con);
-                excluir.ExecuteNonQuery();
-                desativado = true;
+                MySqlCommand excluir = new MySqlCommand($"UPDATE Turmas SET ativo=0 where id_turma = { Id_turma } AND ativo = 1", DAO_Conexao.con);
+                int rowsAffected = excluir.ExecuteNonQuery();
+                if (rowsAffected != 0)
+                {
+                    desativado = true;
+                }
+                
             }
             catch (Exception ex)
             {
@@ -177,22 +210,20 @@ namespace Estudio
             return desativado;
         }
 
-        public bool alterarTurma(int id_turma, int id_modalidade, string professor, string dia_semana, string hora)
+        public void alterarTurma()
         {
-            bool alterado = false;
             try
             {
                 DAO_Conexao.con.Open();
                 MySqlCommand alterar = new MySqlCommand(
-                    $"UPDATE Turmas SET" +
-                    $"id_modalidade = { id_modalidade }," +
-                    $"professor = '{ professor }'," +
-                    $"dia_semana = '{ dia_semana }'," +
-                    $"hora = '{ hora }'" +
-                    $"where id_turma = '{ id_turma }'", DAO_Conexao.con
+                    $"UPDATE Turmas SET " +
+                    $"id_modalidade = { Id_modalidade }," +
+                    $"professor = '{ Professor }'," +
+                    $"dia_semana = '{ Dia_semana }'," +
+                    $"hora = '{ Hora }'" +
+                    $"where id_turma = '{ Id_turma }'", DAO_Conexao.con
                 );
                 alterar.ExecuteNonQuery();
-                alterado = true;
             }
             catch (Exception ex)
             {
@@ -202,7 +233,6 @@ namespace Estudio
             {
                 DAO_Conexao.con.Close();
             }
-            return alterado;
         }
     }
 }

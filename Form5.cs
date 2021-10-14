@@ -20,14 +20,9 @@ namespace Estudio
             this.parent = parent;
         }
 
-        public void carregarModalidades()
-        {
-            
-        }
-
         private void Form5_Load(object sender, EventArgs e)
         {
-            listaModalidades = Modalidades.buscaModalidade();
+            listaModalidades = Modalidades.buscaModalidades();
             foreach (Modalidades modalidade in listaModalidades)
             {
                 cbbModalidades.Items.Add(modalidade.getDescricao());
@@ -38,21 +33,42 @@ namespace Estudio
         }
 
         private void button1_Click(object sender, EventArgs e) {
-            if (txtProfessor.Text.Trim().Equals(""))
+            try
             {
-                MessageBox.Show("Aponte um professor para a Turma!","Erro!");
+                if (txtProfessor.Text.Trim().Equals(""))
+                {
+                    MessageBox.Show("Aponte um professor para a Turma!", "Erro!");
+                }
+                else
+                {
+                    //Caso dê erro, é porque não foi preenchido corretamente o campo de data
+                    int dataEmNumero = Convert.ToInt32(txtHora.Text.ToString().Replace(":", ""));
+                    if (dataEmNumero > 2359)
+                    {
+                        throw new FormatException();
+                    }
+
+                    Modalidades modalidade = listaModalidades.Find(x => x.getDescricao().Contains(cbbModalidades.SelectedItem.ToString()));
+                    int idModalidade = modalidade.getId_Modalidade();
+
+                    Turmas turma = new Turmas(
+                        idModalidade,
+                        txtProfessor.Text.Trim(),
+                        cbbDiaSemana.SelectedItem.ToString(),
+                        txtHora.Text.ToString()
+                    );
+                    turma.cadastrarTurma();
+                    limparTelaCadastro();
+                    MessageBox.Show("Turma cadastrada com Sucesso!", "Sucesso!");
+                }
             }
-            else
+            catch (FormatException ex)
             {
-                Turmas turma = new Turmas(
-                    cbbModalidades.SelectedIndex + 1,
-                    txtProfessor.Text.Trim(),
-                    cbbDiaSemana.SelectedItem.ToString(),
-                    txtHora.Text.ToString()
-                );
-                turma.cadastrarTurma();
-                limparTelaCadastro();
-                MessageBox.Show("Turma cadastrada com Sucesso!","Sucesso!");
+                MessageBox.Show("Insira um horário válido!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
 

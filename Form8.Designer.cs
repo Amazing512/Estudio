@@ -30,7 +30,7 @@ namespace Estudio
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAtualizar = new System.Windows.Forms.Button();
             this.cbbDiaSemana = new System.Windows.Forms.ComboBox();
             this.txtHora = new System.Windows.Forms.MaskedTextBox();
             this.cbbModalidades = new System.Windows.Forms.ComboBox();
@@ -48,7 +48,7 @@ namespace Estudio
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnAtualizar);
             this.groupBox1.Controls.Add(this.cbbDiaSemana);
             this.groupBox1.Controls.Add(this.txtHora);
             this.groupBox1.Controls.Add(this.cbbModalidades);
@@ -63,15 +63,17 @@ namespace Estudio
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dados Turma";
+            this.groupBox1.Visible = false;
             // 
-            // button1
+            // btnAtualizar
             // 
-            this.button1.Location = new System.Drawing.Point(10, 149);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(302, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Cadastrar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAtualizar.Location = new System.Drawing.Point(10, 149);
+            this.btnAtualizar.Name = "btnAtualizar";
+            this.btnAtualizar.Size = new System.Drawing.Size(302, 23);
+            this.btnAtualizar.TabIndex = 8;
+            this.btnAtualizar.Text = "Atualizar";
+            this.btnAtualizar.UseVisualStyleBackColor = true;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
             // cbbDiaSemana
             // 
@@ -159,6 +161,7 @@ namespace Estudio
             this.btnExcluir.TabIndex = 13;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // btnPesquisar
             // 
@@ -168,6 +171,7 @@ namespace Estudio
             this.btnPesquisar.TabIndex = 12;
             this.btnPesquisar.Text = "Pesquisar";
             this.btnPesquisar.UseVisualStyleBackColor = true;
+            this.btnPesquisar.Click += new System.EventHandler(this.btnPesquisar_Click);
             // 
             // txtId
             // 
@@ -197,6 +201,7 @@ namespace Estudio
             this.Controls.Add(this.groupBox1);
             this.Name = "Form8";
             this.Text = "Pesquisa Turma";
+            this.Load += new System.EventHandler(this.Form8_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -207,7 +212,7 @@ namespace Estudio
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAtualizar;
         private System.Windows.Forms.ComboBox cbbDiaSemana;
         private System.Windows.Forms.MaskedTextBox txtHora;
         private System.Windows.Forms.ComboBox cbbModalidades;

@@ -299,8 +299,12 @@ namespace Estudio
             {
                 DAO_Conexao.con.Open();
                 MySqlCommand excluir = new MySqlCommand($"UPDATE AlunoEstudio SET ativo=0 where cpf = '{CPF}' AND ativo=1", DAO_Conexao.con);
-                excluir.ExecuteNonQuery();
-                desativado = true;
+                int rowsAffected = excluir.ExecuteNonQuery();
+
+                if (rowsAffected != 0)
+                {
+                    desativado = true;
+                }
             }
             catch (Exception ex)
             {

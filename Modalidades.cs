@@ -30,6 +30,15 @@ namespace Estudio
             setQtde_alunos(alunos);
         }
 
+        public Modalidades(int id_Modalidade, string descricao, double preco, int aulas, int alunos)
+        {
+            setId_Modalidade(id_Modalidade);
+            setDescricao(descricao);
+            setPreco(preco);
+            setQtde_aulas(aulas);
+            setQtde_alunos(alunos);
+        }
+
         public Modalidades(int id_Modalidade)
         {
             setId_Modalidade(id_Modalidade);
@@ -112,14 +121,14 @@ namespace Estudio
             return cadastrou;
         }
 
-        public static List<Modalidades> buscaModalidade()
+        public static List<Modalidades> buscaModalidades()
         {
 
             List<Modalidades> arrayModalidades = new List<Modalidades>();
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM Modalidades WHERE ativo = 1 ORDER BY id_modalidade" , DAO_Conexao.con);
+                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM Modalidades WHERE ativo = 1 ORDER BY descricao ASC" , DAO_Conexao.con);
                 MySqlDataReader resultado = consulta.ExecuteReader(); 
                 while (resultado.Read())
                 {
@@ -143,18 +152,50 @@ namespace Estudio
             return arrayModalidades;
         }
 
+        public static Modalidades buscaModalidade(int id_modalidade)
+        {
+            Modalidades modalidade = null;
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM Modalidades WHERE id_modalidade = {id_modalidade} AND ativo = 1  ", DAO_Conexao.con);
+                MySqlDataReader resultado = consulta.ExecuteReader();
+                if (resultado.Read())
+                {
+                    modalidade = new Modalidades();
+                    modalidade.setId_Modalidade(Convert.ToInt32(resultado["id_modalidade"]));
+                    modalidade.setDescricao(resultado["descricao"].ToString());
+                    modalidade.setPreco(Convert.ToInt32(resultado["preco"]));
+                    modalidade.setQtde_alunos(Convert.ToInt32(resultado["qtde_alunos"]));
+                    modalidade.setQtde_aulas(Convert.ToInt32(resultado["qtde_aulas"]));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+            return modalidade;
+        }
+
         public bool excluirModalidade()
         {
             bool desativado = false;
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand excluirModalidade = new MySqlCommand($"UPDATE Modalidades SET ativo=0 where id_modalidade = { Id_Modalidade }", DAO_Conexao.con);
-                excluirModalidade.ExecuteNonQuery();
-                MySqlCommand excluirTurmas = new MySqlCommand($"UPDATE Turmas SET ativo=0 where id_modalidade = { Id_Modalidade }", DAO_Conexao.con);
-                excluirTurmas.ExecuteNonQuery();
-
-                desativado = true;
+                MySqlCommand excluirModalidade = new MySqlCommand($"UPDATE Modalidades SET ativo=0 where id_modalidade = { Id_Modalidade } AND ativo = 1", DAO_Conexao.con);
+                int rowsAffected = excluirModalidade.ExecuteNonQuery();
+               
+                if (rowsAffected != 0)
+                {
+                    desativado = true;
+                    MySqlCommand excluirTurmas = new MySqlCommand($"UPDATE Turmas SET ativo=0 where id_modalidade = { Id_Modalidade }", DAO_Conexao.con);
+                    excluirTurmas.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
@@ -167,19 +208,19 @@ namespace Estudio
             return desativado;
         }
 
-        public bool alterarModalidade(int id_Modalidade, string descricao, double preco, int qtde_alunos, int qtde_aulas)
+        public bool alterarModalidade()
         {
             bool alterado = false;
             try
             {
                 DAO_Conexao.con.Open();
                 MySqlCommand alterar = new MySqlCommand(
-                    $"UPDATE Modalidades SET" +
-                    $"descricao = '{ descricao }'," +
-                    $"preco = { preco }," +
-                    $"qtde_alunos = { qtde_alunos }," +
-                    $"qtde_aulas = { qtde_aulas }," +
-                    $"where id_modalidade = { id_Modalidade }", DAO_Conexao.con
+                    $"UPDATE Modalidades SET " +
+                    $"descricao = '{ Descricao }', " +
+                    $"preco = { Preco }, " +
+                    $"qtde_alunos = { Qtde_alunos }, " +
+                    $"qtde_aulas = { Qtde_aulas } " +
+                    $"WHERE id_modalidade = { Id_Modalidade };", DAO_Conexao.con
                 );
                 alterar.ExecuteNonQuery();
                 alterado = true;

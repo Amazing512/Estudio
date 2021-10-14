@@ -21,28 +21,49 @@ namespace Estudio
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            /*if (txt.Text.Trim().Equals(""))
+            try
             {
-                MessageBox.Show("Aponte um professor para a Turma!", "Erro!");
+                if (
+                        txtDescricao.Text.Trim().Equals("") ||
+                        txtPreco.Text.Trim().Equals("")     ||
+                        txtQtdAulas.Text.Trim().Equals("")  ||
+                        txtQtdAlunos.Text.Trim().Equals("")
+                    )
+                {
+                    MessageBox.Show("Preencha todos os campos!", "Erro!");
+                }
+                else
+                {
+                    //Caso dê erro, é porque o campo não foi preenchido corretamente
+                    double preco = Convert.ToDouble(txtPreco.Text.Trim());
+
+                    Modalidades modalidade = new Modalidades(
+                        txtDescricao.Text,
+                        preco,
+                        Convert.ToInt32(txtQtdAulas.Text),
+                        Convert.ToInt32(txtQtdAlunos.Text)
+                    );
+                    modalidade.cadastrarModalidade();
+                    limparTelaCadastro();
+                    MessageBox.Show("Modalidade cadastrada com Sucesso!", "Sucesso!");
+                }
             }
-            else
+            catch (FormatException ex)
             {
-                /*
-                    Id_Modalidade;
-                    Descricao;
-                    Preco;
-                    Qtde_aulas;
-                    Qtde_alunos;
-                    Ativo;
-               
-                Modalidade modalidade = new Modalidade(
-                    
-                );
-                turma.cadastrarTurma();
-                limparTelaCadastro();
-                MessageBox.Show("Modalidade cadastrada com Sucesso!", "Sucesso!");
+                MessageBox.Show("Preencha o horário corretamente!");
             }
-            txt*/
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+        public void limparTelaCadastro()
+        {
+            txtDescricao.Text = "";
+            txtPreco.Text = "";
+            txtQtdAlunos.Text = "";
+            txtQtdAulas.Text = "";
         }
     }
 }
