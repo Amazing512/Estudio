@@ -49,9 +49,8 @@ namespace Estudio
                         throw new FormatException();
                     }
 
-                    Modalidades modalidade = listaModalidades.Find(x => x.getDescricao().Contains(cbbModalidades.SelectedItem.ToString()));
+                    Modalidades modalidade = listaModalidades[cbbModalidades.SelectedIndex];
                     int idModalidade = modalidade.getId_Modalidade();
-
 
                     Turmas turma = new Turmas(
                         idModalidade,

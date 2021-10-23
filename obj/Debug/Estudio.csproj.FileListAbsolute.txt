@@ -78,3 +78,10 @@ C:\Users\mathe\source\repos\Estudio\Estudio\obj\Debug\Estudio.Form5.resources
 C:\Users\mathe\source\repos\Estudio\Estudio\obj\Debug\Estudio.Form6.resources
 C:\Users\mathe\source\repos\Estudio\Estudio\obj\Debug\Estudio.Form7.resources
 C:\Users\mathe\source\repos\Estudio\Estudio\obj\Debug\Estudio.Form8.resources
+C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.csproj.AssemblyReference.cache
+C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form10.resources
+C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form5.resources
+C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form6.resources
+C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form7.resources
+C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form8.resources
+C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form9.resources

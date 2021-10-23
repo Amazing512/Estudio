@@ -127,7 +127,7 @@ namespace Estudio
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM Turmas WHERE id_modalidade={id_modalidade} AND ativo = 1");
+                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM Turmas WHERE id_modalidade={id_modalidade} AND ativo = 1", DAO_Conexao.con);
                 MySqlDataReader resultado = consulta.ExecuteReader();
 
                 while (resultado.Read())
