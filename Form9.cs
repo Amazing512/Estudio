@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,7 +31,7 @@ namespace Estudio
             listaTurmas = Turmas.buscaTurmas(listaModalidades[cbbModalidades.SelectedIndex].getId_Modalidade());
             foreach (Turmas turma in listaTurmas)
             {
-                dgvTurmas.Rows.Add(turma.getId_modalidade(),turma.getProfessor(), turma.getDia_semana(),turma.getHora());
+                dgvTurmas.Rows.Add(turma.getId_turma(),turma.getProfessor(), turma.getDia_semana(),turma.getHora());
             }
 
             gpbTurmas.Visible = true;
@@ -47,20 +48,27 @@ namespace Estudio
             cbbModalidades.SelectedIndex = 0;
         }
 
-        private void txtCpf_Leave(object sender, EventArgs e)
+        private void btnMatricula_Click(object sender, EventArgs e)
         {
+
+            DateTime today = DateTime.Today.Date;
             try
             {
-                if (!Methods.verificaCPF(txtCPF.Text))
+                Aluno al = new Aluno(txtCPF.Text);
+                if (!al.consultaAluno())
                 {
-                    MessageBox.Show("CPF Inválido!", "ERRO");
-                    txtCPF.Focus();
+                    MessageBox.Show("Não existe aluno cadastrado com esse CPF!");
+                    return;
                 }
+                int linha = dgvTurmas.SelectedCells[0].RowIndex;
+                int idTurma = int.Parse(dgvTurmas.Rows[linha].Cells[0].Value.ToString());
+                Matricula ma = new Matricula(idTurma, al.getCPF(), today, 1);
+                ma.cadastroMatricula();
+                MessageBox.Show("Cadastrado com sucesso!", "Sucesso!");
             }
-            catch (FormatException ex)
+            catch(Exception ex)
             {
-                MessageBox.Show("CPF inválido!", "ERRO");
-                txtCPF.Focus();
+                MessageBox.Show(ex.Message);
             }
         }
     }

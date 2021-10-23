@@ -9,7 +9,7 @@ namespace Estudio
 {
     class Matricula
     {
-        private int Id_aluno;
+        private string Id_aluno;
         private int Id_turma;
         private DateTime Data_entrada;
         private byte Status;
@@ -21,14 +21,30 @@ namespace Estudio
 
         }
 
-        public Matricula(int Id_turma, int Id_Aluno, DateTime Data_entrada, byte Status, DateTime Data_encerramento)
+        public Matricula(string Id_Aluno)
+        {
+            setId_aluno(Id_Aluno);
+        }
+
+        public Matricula(int Id_turma)
+        {
+            setId_turma(Id_turma);
+        }
+
+        public Matricula(int Id_turma, string Id_aluno)
+        {
+            setId_turma(Id_turma);
+            setId_aluno(Id_aluno);
+        }
+
+        public Matricula(int Id_turma, string Id_Aluno, DateTime Data_entrada, byte Status)
         {
             setId_turma(Id_turma);
             setId_aluno(Id_Aluno);
             setData_entrada(Data_entrada);
             setStatus(Status);
-            setData_encerramento(Data_encerramento);
         }
+
 
         public int getId_turma()
         {
@@ -40,12 +56,12 @@ namespace Estudio
             this.Id_turma = id_turma;
         }
 
-        public int getId_aluno()
+        public string getId_aluno()
         {
             return this.Id_aluno;
         }
 
-        public void setId_aluno(int id_aluno)
+        public void setId_aluno(string id_aluno)
         {
             this.Id_aluno = id_aluno;
         }
@@ -86,11 +102,11 @@ namespace Estudio
                 DAO_Conexao.con.Open();
 
                 MySqlCommand insere = new MySqlCommand(
-                    $"INSERT INTO Matricula (id_aluno, id_turma, data_entrada, data_encerramento, status) VALUES (" +
+                    $"INSERT INTO MatriculaEstudio (id_aluno, id_turma, data_entrada, status) VALUES (" +
                     $"'{ Id_aluno }'," +
                     $"{ Id_turma }," +
-                    $"{ Data_entrada }," +
-                    $"{ Data_encerramento }, 1)",
+                    $"'{ Data_entrada.Date.ToString("s") }'," +
+                    $" 1)",
                     DAO_Conexao.con
                  );
 
@@ -98,7 +114,7 @@ namespace Estudio
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                throw ex;
             }
             finally
             {
@@ -112,13 +128,13 @@ namespace Estudio
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM Matricula WHERE id_aluno={Id_aluno} AND status = 1", DAO_Conexao.con);
+                MySqlCommand consulta = new MySqlCommand($"SELECT * FROM MatriculaEstudio WHERE id_aluno= '{Id_aluno}' AND status = 1", DAO_Conexao.con);
                 MySqlDataReader resultado = consulta.ExecuteReader();
 
                 while (resultado.Read())
                 {
                     Matricula matricula = new Matricula();
-                    matricula.setId_aluno(int.Parse(resultado["id_aluno"].ToString()));
+                    matricula.setId_aluno(resultado["id_aluno"].ToString());
                     matricula.setId_turma(Convert.ToInt32(resultado["id_turma"].ToString()));
                     matricula.setData_entrada(DateTime.Parse(resultado["data_entrada"].ToString()));
                     matricula.setStatus(1);
@@ -138,8 +154,28 @@ namespace Estudio
             return matriculasArray;
         }
 
-        public void excluirMatricula(){
-
+        public bool excluirMatricula(){
+            bool desativado = false;
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand excluirModalidade = new MySqlCommand($"UPDATE MatriculaEstudio SET status=0, data_encerramento = '{ DateTime.Now.Date.ToString("s") }' WHERE id_aluno = '{ Id_aluno }' AND id_turma = { Id_turma } AND status = 1", DAO_Conexao.con);
+                int rowsAffected = excluirModalidade.ExecuteNonQuery();
+               
+                if (rowsAffected != 0)
+                {
+                    desativado = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+            return desativado;
 
         }
 
