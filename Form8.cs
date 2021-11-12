@@ -52,12 +52,16 @@ namespace Estudio
                     Modalidades modalidade = listaModalidades[cbbModalidades.SelectedIndex];
                     int idModalidade = modalidade.getId_Modalidade();
 
+                    idTurma = Convert.ToInt32(txtId.Text.ToString());
+
                     Turmas turma = new Turmas(
                         idModalidade,
                         txtProfessor.Text.Trim(),
                         cbbDiaSemana.SelectedItem.ToString(),
                         txtHora.Text.ToString()
                     );
+                    turma.setId_turma(idTurma);
+
                     turma.alterarTurma();
                     limparTelaCadastro();
                     groupBox1.Visible = false;

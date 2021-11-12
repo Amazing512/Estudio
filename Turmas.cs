@@ -221,7 +221,7 @@ namespace Estudio
                     $"professor = '{ Professor }'," +
                     $"dia_semana = '{ Dia_semana }'," +
                     $"hora = '{ Hora }'" +
-                    $"where id_turma = '{ Id_turma }'", DAO_Conexao.con
+                    $" WHERE id_turma = { Id_turma }", DAO_Conexao.con
                 );
                 alterar.ExecuteNonQuery();
             }
