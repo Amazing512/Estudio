@@ -113,6 +113,7 @@
       <DependentUpon>Form9.cs</DependentUpon>
     </Compile>
     <Compile Include="Matricula.cs" />
+    <Compile Include="Mensalidades.cs" />
     <Compile Include="Methods.cs" />
     <Compile Include="Modalidades.cs" />
     <Compile Include="Program.cs" />
