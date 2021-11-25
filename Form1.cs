@@ -77,5 +77,19 @@ namespace Estudio
             form10.MdiParent = this;
             form10.Show();
         }
+
+        private void gerarMensalidadeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form11 form11 = new Form11(this);
+            form11.MdiParent = this;
+            form11.Show();
+        }
+
+        private void pagarMensalidadeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form12 form12 = new Form12(this);
+            form12.MdiParent = this;
+            form12.Show();
+        }
     }
 }

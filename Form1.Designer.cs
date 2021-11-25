@@ -42,6 +42,9 @@ namespace Estudio
             this.matrículaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultarToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mensalidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gerarMensalidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pagarMensalidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +54,8 @@ namespace Estudio
             this.cadastrarToolStripMenuItem,
             this.turmasToolStripMenuItem,
             this.modalidadesToolStripMenuItem,
-            this.matrículaToolStripMenuItem});
+            this.matrículaToolStripMenuItem,
+            this.mensalidadeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -150,6 +154,29 @@ namespace Estudio
             this.consultarToolStripMenuItem2.Text = "Consultar";
             this.consultarToolStripMenuItem2.Click += new System.EventHandler(this.consultarToolStripMenuItem2_Click);
             // 
+            // mensalidadeToolStripMenuItem
+            // 
+            this.mensalidadeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gerarMensalidadeToolStripMenuItem,
+            this.pagarMensalidadeToolStripMenuItem});
+            this.mensalidadeToolStripMenuItem.Name = "mensalidadeToolStripMenuItem";
+            this.mensalidadeToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.mensalidadeToolStripMenuItem.Text = "Mensalidade";
+            // 
+            // gerarMensalidadeToolStripMenuItem
+            // 
+            this.gerarMensalidadeToolStripMenuItem.Name = "gerarMensalidadeToolStripMenuItem";
+            this.gerarMensalidadeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gerarMensalidadeToolStripMenuItem.Text = "Gerar Mensalidade";
+            this.gerarMensalidadeToolStripMenuItem.Click += new System.EventHandler(this.gerarMensalidadeToolStripMenuItem_Click);
+            // 
+            // pagarMensalidadeToolStripMenuItem
+            // 
+            this.pagarMensalidadeToolStripMenuItem.Name = "pagarMensalidadeToolStripMenuItem";
+            this.pagarMensalidadeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pagarMensalidadeToolStripMenuItem.Text = "Pagar Mensalidade";
+            this.pagarMensalidadeToolStripMenuItem.Click += new System.EventHandler(this.pagarMensalidadeToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -183,6 +210,9 @@ namespace Estudio
         private System.Windows.Forms.ToolStripMenuItem matrículaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cadastroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem mensalidadeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gerarMensalidadeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pagarMensalidadeToolStripMenuItem;
     }
 }
 

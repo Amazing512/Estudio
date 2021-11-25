@@ -85,3 +85,5 @@ C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form6.resources
 C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form7.resources
 C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form8.resources
 C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form9.resources
+C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form11.resources
+C:\Users\corre\source\repos\Estudio\obj\Debug\Estudio.Form12.resources
